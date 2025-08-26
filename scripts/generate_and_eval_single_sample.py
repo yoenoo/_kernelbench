@@ -39,12 +39,14 @@ class EvalConfig(Config):
         self.eval_mode = "local"
         # Construct this from mapping from architecture name to torch cuda arch list in the future
         # you can either specify SM version or just use the name
-        self.gpu_arch = ["Ada"]
+        self.gpu_arch = ["Hopper"]
 
         # Inference config
-        self.server_type = "deepseek"
-        self.model_name = "deepseek-coder"
-        self.max_tokens = 4096
+        # self.server_type = "deepseek"
+        # self.model_name = "deepseek-coder"
+        self.server_type = "sglang"
+        self.model_name = "Qwen/Qwen3-14B"
+        self.max_tokens = 15000
         self.temperature = 0.0
 
         # Logging

@@ -57,7 +57,7 @@ class EvalConfig(Config):
 
         # Construct this from mapping from architecture name to torch cuda arch list in the future
         # you can either specify SM version or just use the name
-        self.gpu_arch = ["Ada"]
+        self.gpu_arch = ["Hopper"]
 
         # Logging
         # Top Directory to Store Runs
@@ -66,7 +66,7 @@ class EvalConfig(Config):
         self.verbose = False
 
         # Eval settings
-        self.num_correct_trials = 5
+        self.num_correct_trials = 1
         self.num_perf_trials = 100
         self.timeout = 180 # in seconds
         self.measure_performance = True

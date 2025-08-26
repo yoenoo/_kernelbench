@@ -46,6 +46,22 @@ SAMBANOVA_API_KEY = os.environ.get("SAMBANOVA_API_KEY")
 FIREWORKS_API_KEY = os.environ.get("FIREWORKS_API_KEY")
 
 
+from sglang.test.doc_patch import launch_server_cmd
+from sglang.utils import wait_for_server, print_highlight, terminate_process
+
+# This is equivalent to running the following command in your terminal
+# python3 -m sglang.launch_server --model-path qwen/qwen2.5-0.5b-instruct --host 0.0.0.0
+
+server_process, port = launch_server_cmd(
+    """
+python3 -m sglang.launch_server --model-path qwen/qwen2.5-0.5b-instruct \
+ --host 0.0.0.0
+"""
+)
+
+wait_for_server(f"http://localhost:{port}")
+
+
 ########################################################
 # Inference Helpers
 ########################################################
@@ -116,10 +132,12 @@ def query_server(
     # Select model and client based on arguments
     match server_type:
         case "sglang":
-            url = f"http://{server_address}:{server_port}"
-            client = OpenAI(
-                api_key=SGLANG_KEY, base_url=f"{url}/v1", timeout=None, max_retries=0
-            )
+            # url = f"http://{server_address}:{server_port}"
+            # client = OpenAI(
+            #     api_key=SGLANG_KEY, base_url=f"{url}/v1", timeout=None, max_retries=0
+            # )
+            url = f"http://127.0.0.1:{port}"
+            client = OpenAI(api_key="None", base_url=f"{url}/v1", timeout=None, max_retries=0)
             model = "default"
         case "deepseek":
             client = OpenAI(
